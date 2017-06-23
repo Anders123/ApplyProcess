@@ -1,0 +1,13 @@
+﻿@model ApplyProcess.Models.ApplyViewModel
+
+<nav>
+    Number of questions: @Model.NumberOfQuestions
+    <ul>
+        @foreach (var question in Model.Questions)
+        {
+            <li>
+                @question
+            </li>
+        }
+    </ul>
+</nav>

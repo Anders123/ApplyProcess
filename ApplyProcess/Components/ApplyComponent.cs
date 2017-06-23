@@ -11,24 +11,21 @@ namespace ApplyProcess.Components
 {
     public class ApplyComponent : ViewComponent
     {
-
-        private readonly MySettings settings;
-
-        public ApplyComponent(IOptions<MySettings> mysettings)
+        private readonly ApplyProcessWebApiSettings _webApiSettings;
+    
+        public ApplyComponent(IOptions<ApplyProcessWebApiSettings> applyProcessWebApiSettings)
         {
-            this.settings = mysettings.Value;
+            _webApiSettings = applyProcessWebApiSettings.Value;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
-            var navbarItems = new List<NavbarItemViewModel>();
+
+            ApplyViewModel viewModel = null;
             await Task.Run(() =>
             {
-                navbarItems.Add(new NavbarItemViewModel("Action 1", "Home/Action1"));
-                navbarItems.Add(new NavbarItemViewModel("Action 2", "Home/Action2"));
-                navbarItems.Add(new NavbarItemViewModel("Action 3", "Home/Action3"));
+                 viewModel = new ApplyViewModel();
             });
-            var viewModel = new NavbarViewModel(navbarItems);
             return View(viewModel);
         }
 

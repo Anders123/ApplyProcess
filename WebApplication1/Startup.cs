@@ -51,19 +51,20 @@ namespace WebApplication1
             });
 
             // load it directly from the appsettings.json "mysettings" section
-            services.Configure<MySettings>(Configuration.GetSection("MySettings"));
+            // services.Configure<MySettings>(Configuration.GetSection("MySettings"));
+            services.Configure<ApplyProcessWebApiSettings>(Configuration.GetSection("ApplyProcessWebApiSettings"));
 
             // do it manually
-       
 
-          //services.Configure<MySettings>(mysettings =>
-          //{
-          //    new MySettings
-          //    {
-          //        Value1 = "Some Value",
-          //        Value2 = "Some value 2"
-          //    };
-          //});
+
+            //services.Configure<MySettings>(mysettings =>
+            //{
+            //    new MySettings
+            //    {
+            //        Value1 = "Some Value",
+            //        Value2 = "Some value 2"
+            //    };
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

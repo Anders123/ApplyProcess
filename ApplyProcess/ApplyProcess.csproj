@@ -9,12 +9,12 @@
         <OutputType>Library</OutputType>
     </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Views\Shared\Components\NavBarComponent\Default.cshtml" />
-  </ItemGroup>
+    <ItemGroup>
+      <Content Remove="Views\Shared\Components\ApplyComponent\Default.cshtml" />
+    </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Views\Shared\Components\NavBarComponent\Default.cshtml" />
+    <EmbeddedResource Include="Views\Shared\Components\ApplyComponent\Default.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
