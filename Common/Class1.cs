@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ApplyProcess
+namespace Common
 {
     public class Class1
     {

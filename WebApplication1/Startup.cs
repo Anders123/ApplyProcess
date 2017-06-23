@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -35,7 +36,7 @@ namespace WebApplication1
 
             //Get a reference to the assembly that contains the view components
             //var assembly = typeof(ViewComponentLibrary.ViewComponents.SimpleViewComponent).GetTypeInfo().Assembly;
-            var assembly = typeof(ApplyProcess.Components.NavBarComponent).GetTypeInfo().Assembly;
+            var assembly = typeof(ApplyProcess.Components.ApplyComponent).GetTypeInfo().Assembly;
 
             //Create an EmbeddedFileProvider for that assembly
             var embeddedFileProvider = new EmbeddedFileProvider(
@@ -49,6 +50,20 @@ namespace WebApplication1
                 options.FileProviders.Add(embeddedFileProvider);
             });
 
+            // load it directly from the appsettings.json "mysettings" section
+            services.Configure<MySettings>(Configuration.GetSection("MySettings"));
+
+            // do it manually
+       
+
+          //services.Configure<MySettings>(mysettings =>
+          //{
+          //    new MySettings
+          //    {
+          //        Value1 = "Some Value",
+          //        Value2 = "Some value 2"
+          //    };
+          //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
