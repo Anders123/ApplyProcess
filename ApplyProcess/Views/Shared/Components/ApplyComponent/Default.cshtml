@@ -1,13 +1,20 @@
 ﻿@model ApplyProcess.Models.ApplyViewModel
 
 <nav>
-    Number of questions: @Model.NumberOfQuestions
+    Interview Id = @Model.Interview.InterviewInstanceId
+    <br/>
+    Questions:
+    <br/>
     <ul>
-        @foreach (var question in Model.Questions)
+        @foreach (var question in Model.Interview.Questions)
         {
             <li>
-                @question
+                Title: @question.QuestionTitle
+                <br/>
+                Text: @question.QuestionText
             </li>
         }
     </ul>
+    <br/>
+    <br/>
 </nav>
