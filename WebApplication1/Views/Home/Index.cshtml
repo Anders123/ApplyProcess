@@ -1,10 +1,22 @@
-﻿@{
+﻿@model ApplyProcess.Models.ApplyViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div>
-    @await Component.InvokeAsync(nameof(ApplyProcess.Components.ApplyComponent), 34)
+    @await Component.InvokeAsync(nameof(ApplyProcess.Components.ApplyComponent), Model)
 </div>
+
+
+@*@using (Html.BeginForm("DoUpdate", "Home", FormMethod.Post))
+{
+    
+    @Html.Hidden("InterviewInstanceId", 11)
+    @Html.Hidden("applyModel", "Hej Anders")
+
+    <input type="submit" name="DoUpdate" value="DoUpdate" class="btn btn-default" />
+}*@
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">

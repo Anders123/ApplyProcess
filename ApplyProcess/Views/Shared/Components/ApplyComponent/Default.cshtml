@@ -1,20 +1,28 @@
-﻿@model ApplyProcess.Models.ApplyViewModel
+﻿@using System.Security.Cryptography.X509Certificates
+@using Newtonsoft.Json
+@model ApplyProcess.Models.ApplyViewModel
 
 <nav>
     Interview Id = @Model.Interview.InterviewInstanceId
-    <br/>
+    <br />
     Questions:
-    <br/>
+    <br />
     <ul>
         @foreach (var question in Model.Interview.Questions)
         {
-            <li>
-                Title: @question.QuestionTitle
-                <br/>
-                Text: @question.QuestionText
-            </li>
+        <li>
+            Title: @question.QuestionTitle
+            <br />
+            Text: @question.QuestionText
+        </li>
         }
     </ul>
-    <br/>
-    <br/>
+    @using (Html.BeginForm("DoUpdate", "Home", FormMethod.Post))
+    {
+        @Html.Hidden("applyModel", JsonConvert.SerializeObject(Model))
+        <input type="submit" name="DoUpdate" value="DoUpdate" class="btn btn-default" />
+    }
+
+
+
 </nav>

@@ -16,24 +16,44 @@ namespace ApplyProcess.Components
     public class ApplyComponent : ViewComponent
     {
         private readonly ApplyProcessWebApiSettings _webApiSettings;
-    
+
         public ApplyComponent(IOptions<ApplyProcessWebApiSettings> applyProcessWebApiSettings)
         {
             _webApiSettings = applyProcessWebApiSettings.Value;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int id)
+        public async Task<IViewComponentResult> InvokeAsync(ApplyViewModel viewModelFromController)
         {
-            var interview = await GetData();
 
-            ApplyViewModel viewModel = null;
-            await Task.Run(() =>
+            if (viewModelFromController == null)
             {
-                 viewModel = new ApplyViewModel();
-                viewModel.Interview = interview;
-            });
-            return View(viewModel);
+                var interview = await GetData();
+
+                ApplyViewModel viewModel = null;
+                await Task.Run(() =>
+                {
+                    viewModel = new ApplyViewModel { Interview = interview };
+                });
+                return View(viewModel);
+            }
+            else
+            {
+                return View(viewModelFromController);
+            }
         }
+
+        //public IViewComponentResult Invoke(ApplyViewModel viewModel)
+        //{
+        //    //var interview = await GetData();
+
+        //    //ApplyViewModel viewModel = null;
+        //    //await Task.Run(() =>
+        //    //{
+        //    //    viewModel = new ApplyViewModel { Interview = interview };
+        //    //});
+        //    return View(viewModel);
+        //}
+
 
         public async Task<Interview> GetData()
         {
@@ -41,9 +61,9 @@ namespace ApplyProcess.Components
 
             using (var client = new HttpClient())
             {
-              //  client.BaseAddress = new Uri(_webApiSettings.BaseUrl + "Interview/Create?briefCaseId=1");  //new Uri("http://www.omdbapi.com");
-               // client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-               
+                //  client.BaseAddress = new Uri(_webApiSettings.BaseUrl + "Interview/Create?briefCaseId=1");  //new Uri("http://www.omdbapi.com");
+                // client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
 
                 HttpResponseMessage response = await client.PostAsync(new Uri(_webApiSettings.BaseUrl + "Interview/Create?briefCaseId=1", UriKind.Absolute), null);
 
