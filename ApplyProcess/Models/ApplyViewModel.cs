@@ -8,13 +8,9 @@ namespace ApplyProcess.Models
     public class ApplyViewModel
     {
         public Interview Interview { get; set; }
-        //public int NumberOfQuestions { get; set; } = 3;
+        public int CurrentStep { get; set; } = 1;
+        public bool CanGoBack => (CurrentStep > 1);
+        public bool CanGoForward => (CurrentStep < Interview.Questions.Count);
 
-        //public List<string> Questions = new List<string>
-        //{
-        //    "Question 1",
-        //    "Question 2",
-        //    "Question 3"
-        //};
     }
 }

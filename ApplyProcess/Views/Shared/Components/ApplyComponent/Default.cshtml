@@ -2,27 +2,33 @@
 @using Newtonsoft.Json
 @model ApplyProcess.Models.ApplyViewModel
 
-<nav>
-    Interview Id = @Model.Interview.InterviewInstanceId
-    <br />
-    Questions:
-    <br />
-    <ul>
-        @foreach (var question in Model.Interview.Questions)
-        {
-        <li>
-            Title: @question.QuestionTitle
-            <br />
-            Text: @question.QuestionText
-        </li>
-        }
-    </ul>
+<div style="margin-top: 50px; margin-bottom: 50px;">
     @using (Html.BeginForm("DoUpdate", "Home", FormMethod.Post))
     {
+        @Html.AntiForgeryToken()
         @Html.Hidden("applyModel", JsonConvert.SerializeObject(Model))
-        <input type="submit" name="DoUpdate" value="DoUpdate" class="btn btn-default" />
+        @Html.Hidden("questionCount", Model.Interview.Questions.Count)
+        @Html.Hidden("currentStep", Model.CurrentStep)
+
+        <p>
+            Question @(Model.CurrentStep + 1) of @Model.Interview.Questions.Count
+        </p>
+        
+        <ul>
+            @{
+
+                var currentQuestion = Model.Interview.Questions[Model.CurrentStep];
+                <li>
+                    Title: @currentQuestion.QuestionTitle
+                    <br />
+                    Text: @currentQuestion.QuestionText
+                </li>
+            }
+        </ul>
+
+        <input type="submit" id="PreviousSubmit" name="Previous" value="Pevious" class="btn btn-default" />
+        <input type="submit" id="NextSubmit" name="Next" value="Next" class="btn btn-default" />
+
+
     }
-
-
-
-</nav>
+</div>

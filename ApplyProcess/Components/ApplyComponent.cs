@@ -24,7 +24,7 @@ namespace ApplyProcess.Components
 
         public async Task<IViewComponentResult> InvokeAsync(ApplyViewModel viewModelFromController)
         {
-
+            // No view model yet
             if (viewModelFromController == null)
             {
                 var interview = await GetData();
@@ -32,28 +32,17 @@ namespace ApplyProcess.Components
                 ApplyViewModel viewModel = null;
                 await Task.Run(() =>
                 {
-                    viewModel = new ApplyViewModel { Interview = interview };
+                    viewModel = new ApplyViewModel
+                    {
+                        Interview = interview,
+                        CurrentStep = 0
+                    };
                 });
                 return View(viewModel);
             }
-            else
-            {
-                return View(viewModelFromController);
-            }
+            // View model already instantiated
+            return View(viewModelFromController);
         }
-
-        //public IViewComponentResult Invoke(ApplyViewModel viewModel)
-        //{
-        //    //var interview = await GetData();
-
-        //    //ApplyViewModel viewModel = null;
-        //    //await Task.Run(() =>
-        //    //{
-        //    //    viewModel = new ApplyViewModel { Interview = interview };
-        //    //});
-        //    return View(viewModel);
-        //}
-
 
         public async Task<Interview> GetData()
         {

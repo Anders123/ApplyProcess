@@ -13,9 +13,30 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult DoUpdate(string applyModel)
         {
+            ModelState.Clear();
+
             var viewModel = JsonConvert.DeserializeObject<ApplyViewModel>(applyModel);
-           // return ViewComponent("ApplyComponent", viewModel);
-           return View("Index", viewModel);
+
+            var next = Request.Form["Next"];
+            var previous = Request.Form["Previous"];
+            if (next.Count > 0)
+            {
+                if (viewModel.CurrentStep < viewModel.Interview.Questions.Count - 1)
+                {
+                    viewModel.CurrentStep += 1;
+                }
+            }
+            else if (previous.Count > 0)
+            {
+                if (viewModel.CurrentStep > 0)
+                {
+                    viewModel.CurrentStep -= 1;
+                }
+            }
+
+  
+            // return ViewComponent("ApplyComponent", viewModel);
+            return View("Index", viewModel);
         }
 
 
